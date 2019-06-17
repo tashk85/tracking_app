@@ -1,19 +1,26 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 const app = express();
+const port = 3000;
+
+mongoose.connect("mongodb://localhost/tracking_app", { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
 
 app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-//when we receive data from a post request, it's received as a stream which is unusable to us without converting
-//allow application to convert the data stream form data to json
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(methodOverride('_method', { methods: ['POST', 'GET']}));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // telling app to use routes we exported
 app.use(require("./routes"));
 
 //turn app on
-app.listen(3000, () => {
-    console.log(`The server is running on port 3000`);
+app.listen(port, () => {
+    console.log(`The server is running on port ${port}`);
 });
