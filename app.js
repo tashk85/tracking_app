@@ -1,26 +1,35 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const morgan = require("morgan");
+const expressSession = require("express-session");
+const MongoStore = require('connect-mongo');
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const methodOverride = require("method-override");
 const app = express();
-const port = 3000;
-
-mongoose.connect("mongodb://localhost/tracking_app", { useNewUrlParser: true });
-mongoose.Promise = global.Promise;
 
 app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-app.use(methodOverride('_method', { methods: ['POST', 'GET']}));
+app.use(expressSession({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// telling app to use routes we exported
-app.use(require("./routes"));
+app.use(morgan("combined"));
 
-//turn app on
-app.listen(port, () => {
-    console.log(`The server is running on port ${port}`);
-});
+const passport = require("./config/passport");
+app.use(passport.initialize());
+app.use(passport.session()); //allows passport to have access to our session
+
+app.use(express.static("public"));
+
+app.use(require("./middleware/error_handler_middleware"));
+
+module.exports = app;
