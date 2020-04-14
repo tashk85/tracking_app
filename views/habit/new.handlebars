@@ -1,0 +1,58 @@
+<h1>Create A Habit</h1>
+
+
+<form method="post" action="/login">
+    <div>
+        <label>Habit</label>
+        <input type="text" name="habit" />
+    </div>
+    <div>
+        <label>Frequency</label>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Monday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Tuesday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Wednesday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Thursday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Friday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Saturday</label>
+        </div>
+        <div>
+            <input type="checkbox" id="days" name="days"
+            checked>
+            <label for="days">Sunday</label>
+        </div>
+    </div>
+    <div>
+        <select name="time">
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+            <option value="once at any time">Once At Any Time</option>
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Create Habit" />
+    </div>
+</form>

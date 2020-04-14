@@ -5,8 +5,8 @@ function registerNew(req, res) {
 }
 
 async function registerCreate(req, res, next) {
-    const { email, password } = req.body;
-    const user = await UserModel.create({ email, password });
+    const { name, email, password } = req.body;
+    const user = await UserModel.create({ name, email, password });
     
     req.login(user, (error) => {
         if (error) {
@@ -30,6 +30,5 @@ module.exports = {
     registerNew,
     registerCreate,
     logout,
-    loginNew,
-    loginCreate
+    loginNew
 }

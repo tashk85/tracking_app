@@ -8,8 +8,13 @@ const HabitSchema = new Schema({
     },
     frequency: {
         type: String,
-        enum: ['daily', '2 times a week', '3 times a week', '4 times a week', '5 times a week'],
+        enum: ['daily', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
         default: 'daily'
+    },
+    time: {
+        type: String,
+        enum: ['morning', 'afternoon', 'evening', 'once at any time'],
+        default: 'once at any time'
     }
 });
 

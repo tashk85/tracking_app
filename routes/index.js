@@ -15,6 +15,7 @@ router.get("/register", authRedirect, AuthenticationController.registerNew);
 
 router.post("/register", celebrate({
     body: {
+        name: Joi.string().required(),
         email: Joi.string().required(),
         password: Joi.string().required()
     }
@@ -34,6 +35,6 @@ router.post("/login", celebrate({
 
 router.get("/dashboard", authorise, PageController.dashboard);
 
-router.use("/habits", habitRoutes);
+// router.use("/habits", habitRoutes);
 
 module.exports = router;

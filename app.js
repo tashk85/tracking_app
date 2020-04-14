@@ -2,7 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const morgan = require("morgan");
 const expressSession = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo')(expressSession);
 const mongoose = require("mongoose");
 const app = express();
 
@@ -27,6 +27,8 @@ app.use(morgan("combined"));
 const passport = require("./config/passport");
 app.use(passport.initialize());
 app.use(passport.session()); //allows passport to have access to our session
+
+app.use(require("./routes"));
 
 app.use(express.static("public"));
 

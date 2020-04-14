@@ -1,12 +1,13 @@
 function index(req, res) {
     req.session.views = req.session.views ? req.session.views + 1 : 1; 
-    res.json(req.session);
+    // res.json(req.session);
+    res.send("Hello");
 }
 
 function dashboard(req, res) {
-    const email = req.user.email;
+    const name = req.user.name;
     console.log("yes");
-    res.render("pages/dashboard", { email });
+    res.render("pages/dashboard", { name });
 }
 
 module.exports = {
